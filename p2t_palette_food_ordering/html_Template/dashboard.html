@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport"
+         content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+   <title>P2T Food Palette</title>
+
+   <!-------------------- Bootstrap.CSS -------------------->
+   <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+   <!-------------------- FontAwesome.CSS -------------------->
+   <link rel="stylesheet" href="node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+   <!-------------------- Custom.CSS -------------------->
+   <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<section class="main container-fluid">
+   <div class="row">
+
+      <!-------------------- Aside Section -------------------->
+      <div class="col-12 col-lg-3 vh-100 aside">
+
+         <div class="d-flex align-items-center justify-content-center bg-light brand p-3 mt-3">
+				<span class="brand-img align-items-center p-2 me-2 rounded">
+					<i class="fas fa-utensils text-white h4 mb-0"></i>
+				</span>
+            <span class="brand-title fw-bold text-uppercase h4 mb-0">P2T Food Palette</span>
+         </div>
+
+         <div class="nav-menu">
+            <ul>
+               <li class="menu-spacer"></li>
+               <li class="menu-item">
+                  <a href="index.html" class="menu-item-link active">
+							<span>
+								<i class="fas fa-home"></i>
+								Dashboard
+							</span>
+                  </a>
+               </li>
+
+               <li class="menu-item">
+                  <a href="#" class="menu-item-link">
+							<span>
+								<i class="fab fa-wpforms"></i>
+								Form
+							</span>
+                  </a>
+               </li>
+
+               <li class="menu-item">
+                  <a href="#" class="menu-item-link">
+							<span>
+								<i class="fas fa-table"></i>
+								Table
+							</span>
+                  </a>
+               </li>
+
+               <li class="menu-item">
+                  <a href="login.html" class="menu-item-link">
+							<span>
+								<i class="fas fa-sign-in-alt"></i>
+								Login
+							</span>
+                  </a>
+               </li>
+            </ul>
+         </div>
+
+      </div>
+
+
+      <!-------------------- Content Section -------------------->
+      <div class="col-12 col-lg-9 content bg-light" id="content">
+         <div class="row">
+            <div class="col-12">
+
+               <div class="content-nav d-flex justify-content-between align-items-center p-3 mt-3 rounded">
+
+                  <div class="food-img d-flex">
+                     <span><img src="images/header/1.jpg" class="img-fluid" alt=""></span>
+                     <span><img src="images/header/2.jpg" class="img-fluid" alt=""></span>
+                     <span><img src="images/header/3.jpg" class="img-fluid" alt=""></span>
+                     <span><img src="images/header/4.jpg" class="img-fluid" alt=""></span>
+                     <span><img src="images/header/5.jpg" class="img-fluid" alt=""></span>
+                  </div>
+
+                  <div class="nav-item dropdown">
+                     <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown"
+                        role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="images/header/pp.png" class="admin-img me-2" alt="admin">Admin
+                     </a>
+                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Log Out</a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+
+      </div>
+   </div>
+
+
+
+</section>
+
+
+
+
+
+
+
+
+
+
+
+
+<!-------------------- JQuery.js -------------------->
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<!-------------------- Bootstrap.js -------------------->
+<script src="node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+<!-------------------- main.js -------------------->
+<script src="assets/js/main.js"></script>
+</body>
+</html>
