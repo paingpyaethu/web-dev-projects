@@ -757,6 +757,16 @@ function getDishCartStatus(){
    }
 }
 
+function getCartTotalPrice() {
+   $totalPrice = 0;
+   $cartArr = getUserFullCart();
+
+   foreach ($cartArr as $item){
+      $totalPrice = $totalPrice + ($item['qty'] * $item['price']);
+   }
+   return $totalPrice;
+}
+
 function getUserFullCart($attr_id = ''){
    $cartArr = array();
    if (isset($_SESSION['FOOD_USER_ID'])){
@@ -796,19 +806,19 @@ function getDishDetailById($id){
    return $row;
 }
 
-function getUserDetailById() {
+function getUserDetailById($userId='') {
    $data['name'] = '';
    $data['email'] = '';
    $data['mobile'] = '';
 
-   $userId = $_SESSION['FOOD_USER_ID'];
-
-   if ($userId){
-      $row = mysqli_fetch_assoc(mysqli_query(conn(), "SELECT * FROM users WHERE id='$userId'"));
-      $data['name'] = $row['name'];
-      $data['email'] = $row['email'];
-      $data['mobile'] = $row['mobile'];
+   if(isset($_SESSION['FOOD_USER_ID'])) {
+      $userId = $_SESSION['FOOD_USER_ID'];
    }
+
+   $row = mysqli_fetch_assoc(mysqli_query(conn(), "SELECT * FROM users WHERE id='$userId'"));
+   $data['name'] = $row['name'];
+   $data['email'] = $row['email'];
+   $data['mobile'] = $row['mobile'];
    return $data;
 }
 
@@ -879,9 +889,9 @@ function getOrderById($orderId) {
    return fetchAll($sql);
 }
 
-function orderEmail($orderId)
+function orderEmail($orderId, $userId='')
 {
-   $getUserDetailById = getUserDetailById();
+   $getUserDetailById = getUserDetailById($userId);
    $name = $getUserDetailById['name'];
 
    $getOrderById = getOrderById($orderId);

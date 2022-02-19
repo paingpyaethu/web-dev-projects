@@ -372,7 +372,6 @@ Front End Section Start
 .shopping-cart-total > h4 {
     font-size: 16px;
     font-weight: 700;
-    margin-bottom: 17px;
 }
 .shopping-cart-total > h4:last-child {
     margin-bottom: 0;
@@ -404,6 +403,10 @@ Front End Section Start
 .shopping-cart-btn a:hover {
     background-color: #e02c2b;
     color: #fff;
+}
+
+.coupon_code_box {
+    display: none;
 }
 
 /*=================== Start Main Menu ====================*/
