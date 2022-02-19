@@ -4,6 +4,8 @@
    if(!isset($_SESSION['FOOD_USER_ID'])){
       redirect('shop');
    }
+
+
 ?>
 
 <div class="container-fluid">
@@ -31,10 +33,13 @@
                               </thead>
 
                               <tbody>
-                              <?php foreach (orderLists() as $orderList){ ?>
+                              <?php
+                                 foreach (orderLists() as $orderList){
+                                    $i=1;
+                              ?>
                                  <tr>
                                     <td>
-                                       <?php echo $orderList['id']; ?>
+                                       <?php echo $i; ?>
                                        <br>
                                        <a href="<?php echo FRONT_SITE_PATH?>download_invoice?id=<?php echo $orderList['id'];?>">
                                           <img src='<?php echo FRONT_SITE_PATH?>assets/images/icon-img/pdf.png' width="30px" title="Download Invoice">
@@ -109,7 +114,7 @@
                               </tbody>
                            </table>
                         </div>
-                     <?php } else {
+                     <?php $i++; } else {
                         echo "<p class='alert alert-danger fw-bold fs-5'>Empty Order</p>";
                      } ?>
                   </form>
