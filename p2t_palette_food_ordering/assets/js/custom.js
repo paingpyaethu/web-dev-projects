@@ -270,7 +270,38 @@ jQuery('#formPassword').on('submit', function (e) {
          }
       }
    });
-
    e.preventDefault();
-
 });
+
+function applyCoupon() {
+   let coupon_code = jQuery('#coupon_code').val();
+   if (coupon_code === ''){
+      jQuery('#couponCodeMsg').html('Please Enter Coupon Code');
+   }else {
+      jQuery.ajax({
+         url: frontUrl+'/apply_coupon',
+         type: 'post',
+         data: 'coupon_code='+coupon_code,
+         success: function (result) {
+            let data=jQuery.parseJSON(result);
+            if (data.status == 'success'){
+               Swal.fire(
+                  'Congratulations',
+                  data.msg,
+                  'success'
+               );
+               jQuery('.coupon_code_box').show();
+               jQuery('.coupon_code_str').html(coupon_code);
+               jQuery('.final_price').html('$'+data.coupon_code_apply)
+            }
+            if (data.status == 'error'){
+               Swal.fire(
+                  'Opps!',
+                  data.msg,
+                  'error'
+               );
+            }
+         }
+      })
+   }
+}

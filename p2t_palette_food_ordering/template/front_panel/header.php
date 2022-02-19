@@ -4,7 +4,6 @@ require_once "core/base.php";
 require_once "core/function.php";
 require_once "core/constant.php";
 
-$totalPrice = 0;
 $dollarSign = '$';
 
 getDishCartStatus();
@@ -33,12 +32,8 @@ if (isset($_POST['update_cart'])) {
 }
 
 $cartArr = getUserFullCart();
-//prx($cartArr);
 
-foreach ($cartArr as $item){
-   $totalPrice = $totalPrice + ($item['qty'] * $item['price']);
-}
-
+$totalPrice = getCartTotalPrice();
 $totalCartDish = count($cartArr);
 ?>
 

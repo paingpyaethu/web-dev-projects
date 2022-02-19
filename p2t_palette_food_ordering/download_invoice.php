@@ -16,9 +16,16 @@ if (isset($_SESSION['user'])){
 
 
 if(isset($_GET['id'])  && $_GET['id']>0) {
-
    $id = textFilter($_GET['id']);
-   $orderEmail = orderEmail($id);
+
+   $res = mysqli_query(conn(), "SELECT * FROM order_master WHERE id='$id'");
+   if (isset($_SESSION['user'])){
+      $row = mysqli_fetch_assoc($res);
+      $userId = $row['user_id'];
+   }else {
+      $userId = $_SESSION['FOOD_USER_ID'];
+   }
+   $orderEmail = orderEmail($id, $userId);
 
    $mpdf = new \Mpdf\Mpdf();
    $mpdf->WriteHTML($orderEmail);

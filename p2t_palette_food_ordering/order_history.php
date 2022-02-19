@@ -47,7 +47,12 @@
                                     </td>
                                     <td>
                                        <span class="fw-semi-bold">
-                                          <?php echo $orderList['total_price']; ?>
+                                       <span class="text-black-50">Total:</span> $<?php echo $orderList['total_price']; ?> <br>
+
+                                       <?php if ($orderList['coupon_code'] != ''){ ?>
+                                          <span class="text-black-50">Coupon Code:</span> <?php echo $orderList['coupon_code']; ?> <br>
+                                          <span class="text-black-50">Final Price:</span> $<?php echo $orderList['final_price']; ?>
+                                       <?php } ?>
                                        </span>
                                     </td>
                                     <td>

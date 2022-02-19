@@ -32,10 +32,19 @@ if (isset($_POST['place_order'])){
    $checkout_address = textFilter($_POST['checkout_address']);
    $payment_type = textFilter($_POST['payment_type']);
 
+   if (isset($_SESSION['COUPON_CODE']) && isset($_SESSION['FINAL_PRICE']))
+   {
+      $coupon_code = textFilter($_SESSION['COUPON_CODE']);
+      $final_price = textFilter($_SESSION['FINAL_PRICE']);
+   } else {
+      $coupon_code = '';
+      $final_price = $totalPrice;
+   }
 
-   $sql = "INSERT INTO order_master (user_id, name, email, mobile, address, total_price, zipcode, payment_status, order_status)
+
+   $sql = "INSERT INTO order_master (user_id, name, email, mobile, address, total_price, coupon_code, final_price, zipcode, payment_status, order_status)
            VALUES ('$userId','$checkout_name','$checkout_email','$checkout_mobile','$checkout_address','$totalPrice',
-           '$checkout_zip','pending','1')";
+           '$coupon_code','$final_price','$checkout_zip','pending','1')";
    mysqli_query(conn(),$sql);
 
    getOrderMasterId();
@@ -138,6 +147,18 @@ if (isset($_POST['place_order'])){
                                     <label for="inputAddress" class="form-label">Address</label>
                                     <input type="text" class="form-control" id="inputAddress" placeholder="1234 Main St" name="checkout_address" required>
                                  </div>
+                                 <div class="col-md-6 col-lg-3">
+                                    <label for="coupon_code" class="form-label">Coupon Code</label>
+                                    <input type="text" class="form-control" id="coupon_code" name="coupon_code">
+                                 </div>
+                                 <div class="col-md-6 col-lg-3">
+                                    <button type="button" name="coupon_code" class="btn btn-outline-success text-uppercase"
+                                            style="margin-top: 27px" onclick="applyCoupon()">
+                                       Apply Coupon
+                                    </button>
+                                 </div>
+                                 <p class="my-0 text-danger fw-bold" id="couponCodeMsg"></p>
+
                                  <div class="col-12">
                                     <div class="form-check">
                                        <input class="form-check-input" type="checkbox" id="gridCheck" name="payment_type" value="cod" checked="checked">
@@ -181,6 +202,10 @@ if (isset($_POST['place_order'])){
                            </ul>
                            <div class="shopping-cart-total">
                               <h4>Total : <span class="shop-total"><?php echo $dollarSign.$totalPrice;?></span></h4>
+                              <div class="coupon_code_box">
+                                 <h4 class="fs-6 fw-bold">Coupon Code: <span class="float-end text-danger coupon_code_str"></span></h4>
+                                 <h4 class="fs-6 fw-bold">Final Price: <span class="float-end text-danger final_price"></span></h4>
+                              </div>
                            </div>
                         </div>
                      </div>
@@ -192,26 +217,13 @@ if (isset($_POST['place_order'])){
    </div>
 </div>
 
+<?php
 
+   if (isset($_SESSION['COUPON_CODE']))
+   {
+      unset($_SESSION['COUPON_CODE']);
+      unset($_SESSION['FINAL_PRICE']);
+   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+?>
 <?php include('template/front_panel/footer.php'); ?>
