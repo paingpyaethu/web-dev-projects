@@ -134,6 +134,23 @@ div.dataTables_wrapper div.dataTables_paginate ul.pagination{
     border-color: var(--color-primary);
 }
 
+.order_detail {
+    background-color: #999999;
+    padding: 4px 12px;
+    color: #FFFFFF;
+    border-radius: 5px;
+}
+
+.table-content table th {
+    vertical-align: middle;
+    text-align: center;
+    white-space: nowrap;
+    background-color: #ffecb5;
+}
+.table-content table td {
+    text-align: center;
+}
+
 /*================================================
 Aside Section
 =================================================*/

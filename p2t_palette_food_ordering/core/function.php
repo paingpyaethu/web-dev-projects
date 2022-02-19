@@ -233,9 +233,26 @@ function userLists(){
              Orders
 ==========================================*/
 function orderLists(){
+   $userId = $_SESSION['FOOD_USER_ID'];
+   $sql = "SELECT order_master.*,order_status.order_status AS order_status_str FROM order_master,order_status 
+           WHERE order_master.order_status=order_status.id AND order_master.user_id='$userId'  ORDER BY order_master.id DESC ";
+   return fetchAll($sql);
+}
+
+function adminOrderLists(){
    $sql = "SELECT order_master.*,order_status.order_status AS order_status_str FROM order_master,order_status 
         WHERE order_master.order_status=order_status.id ORDER BY order_master.id DESC ";
    return fetchAll($sql);
+}
+
+function adminOrderInvoices($id){
+   $sql = "SELECT order_master.*,order_status.order_status AS order_status_str FROM order_master,order_status 
+           WHERE order_master.order_status=order_status.id AND order_master.id='$id' ORDER BY order_master.id DESC ";
+   $query = mysqli_query(conn(), $sql);
+   if (mysqli_num_rows($query) > 0) {
+      $orderRow = mysqli_fetch_assoc($query);
+   }
+   return $orderRow;
 }
 /*=========================================
                 Orders End
@@ -299,6 +316,17 @@ function deliveryBoyLists(){
 function deliveryBoy($id){
    $sql = "SELECT * FROM delivery_boy WHERE id = '$id'";
    return fetch($sql);
+}
+
+function getDeliveryBoyNameById($id) {
+   $sql = "SELECT name,mobile FROM delivery_boy WHERE id='$id'";
+   $query = mysqli_query(conn(),$sql);
+   if (mysqli_num_rows($query) > 0){
+      $row = mysqli_fetch_assoc($query);
+      return $row['name'].' '.'( '.$row['mobile'].' )';
+   }else {
+      return 'Not Assigned';
+   }
 }
 
 /*=========================================

@@ -34,7 +34,6 @@
                      <th>Name/Email/Mobile</th>
                      <th>Address/Zipcode</th>
                      <th>Price</th>
-                     <th>Order Details</th>
                      <th>Payment Status</th>
                      <th>Order Status</th>
                      <th>Created At</th>
@@ -42,11 +41,15 @@
                   </thead>
                   <tbody>
                   <?php
-                  if (orderLists()){
-                     foreach (orderLists() as $orderList){
+                  if (adminOrderLists()){
+                     foreach (adminOrderLists() as $orderList){
                         ?>
                         <tr>
-                           <td><?php echo $orderList['id']; ?></td>
+                           <td>
+                              <a href="order_detail.php?id=<?php echo $orderList['id']; ?>" class="order_detail">
+                                 <?php echo $orderList['id']; ?>
+                              </a>
+                           </td>
                            <td>
                               <p class="mb-1"><?php echo $orderList['name']; ?></p>
                               <p class="mb-1"><?php echo $orderList['email']; ?></p>
@@ -58,29 +61,8 @@
                            </td>
                            <td>
                               <span class="fw-semi-bold">
-                                 <?php echo $orderList['total_price']; ?>
+                                 $<?php echo $orderList['total_price']; ?>
                               </span>
-                           </td>
-                           <td>
-                              <table class="table-bordered" style="border:1px solid #e9e8ef;">
-                                 <tr>
-                                    <th class="p-1">Dish</th>
-                                    <th class="p-1">Attribute</th>
-                                    <th class="p-1">Price</th>
-                                    <th class="p-1">Qty</th>
-                                 </tr>
-                              <?php
-                              $getOrderDetails = getOrderDetails($orderList['id']);
-                              foreach ($getOrderDetails as $list){
-                              ?>
-                                 <tr>
-                                    <td class="p-1"><?php echo $list['dish']?></td>
-                                    <td class="p-1"><?php echo $list['attribute']?></td>
-                                    <td class="p-1"><?php echo $list['price']?></td>
-                                    <td class="p-1"><?php echo $list['qty']?></td>
-                                 </tr>
-                              <?php } ?>
-                              </table>
                            </td>
                            <td>
                               <?php if ($orderList['payment_status'] == "pending"){ ?>
