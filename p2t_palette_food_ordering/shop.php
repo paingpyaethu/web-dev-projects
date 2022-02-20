@@ -38,6 +38,15 @@ $arrType = array("veg","non-veg","both");
    </div>
 </div>
 
+   <?php
+   if ($website_close == 1)
+   {
+      echo "<div class='text-center mt-5 text-danger'>
+               <h2 class='mb-0 fw-bold'> $website_close_msg </h2>
+            </div>";
+   }
+   ?>
+
 <div class="container-fluid">
    <div class="row">
       <div class="col-12">
@@ -107,9 +116,13 @@ $arrType = array("veg","non-veg","both");
                               ?>
                               <div class="form-check products-cart">
                                  <?php while ($dish_attr_row = mysqli_fetch_assoc($dish_attr_res)) { ?>
+
+                                 <?php if ($website_close == 0) { ?>
                                  <input class="form-check-input" <?php echo $dish_attr_row['status'] == 0 ? 'disabled' : '' ;?>
                                         type="radio" name="Radio_<?php echo $product_row['id']; ?>" id="RadioBtn_<?php echo $dish_attr_row['id']; ?>"
                                         value="<?php echo $dish_attr_row['id']; ?>">
+                                 <?php } ?>
+
                                  <label class="form-check-label" for="RadioBtn_<?php echo $dish_attr_row['id']; ?>">
                                     <?php echo $dish_attr_row['attribute'];?>
                                     <span class="fw-bold text-danger"> $<?php echo $dish_attr_row['price'];?></span>
@@ -128,6 +141,7 @@ $arrType = array("veg","non-veg","both");
                                  <?php } ?>
                               </div>
                               <div class="d-flex align-items-center">
+                                 <?php if ($website_close == 0){ ?>
                                  <select id="qty<?php echo $product_row['id']?>" class="form-select form-select-sm mt-3" aria-label=".form-select-sm example">
                                     <option value="0">Qty</option>
                                     <?php for ($i=1; $i<=20; $i++){
@@ -138,9 +152,11 @@ $arrType = array("veg","non-veg","both");
                                     onclick="addToCart('<?php echo $product_row['id']?>','add')">
                                     <span class="mt-3 ms-1 fs-6">Add to cart</span>
                                  </i>
-
+                                 <?php }?>
                               </div>
-
+                              <?php if ($website_close == 1){ ?>
+                                 <p class="mb-0 mt-2 fw-bold text-danger"><?php echo $website_close_msg; ?></p>
+                              <?php } ?>
                            </div>
                         </div>
                      </div>

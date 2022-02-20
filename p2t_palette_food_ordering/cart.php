@@ -1,5 +1,14 @@
 <?php include('template/front_panel/header.php'); ?>
 
+<?php
+
+if ($website_close == 1)
+{
+   redirect('shop');
+}
+
+?>
+
 <div class="container-fluid">
    <div class="row">
       <div class="col-12">

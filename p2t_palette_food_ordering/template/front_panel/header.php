@@ -6,6 +6,12 @@ require_once "core/constant.php";
 
 $dollarSign = '$';
 
+$getSetting = getSetting();
+$website_close = $getSetting['website_close'];
+$website_close_msg = $getSetting['website_close_msg'];
+$cart_min_price = $getSetting['cart_min_price'];
+$cart_min_price_msg = $getSetting['cart_min_price_msg'];
+
 getDishCartStatus();
 
 if (isset($_POST['update_cart'])) {

@@ -98,6 +98,15 @@
             </a>
          </li>
 
+         <li class="menu-item">
+            <a href="<?php echo $url; ?>/setting.php" class="menu-item-link">
+					<span class="fs-5 fw-semi-bold">
+						<i class="fas fa-tools"></i>
+                  Setting
+					</span>
+            </a>
+         </li>
+
 		</ul>
    </div>
 </div>
