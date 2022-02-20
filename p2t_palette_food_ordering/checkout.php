@@ -6,6 +6,11 @@ if (!count(getUserFullCart()) > 0) {
    redirect('shop');
 }
 
+if ($website_close == 1)
+{
+   redirect('shop');
+}
+
 if (isset($_SESSION['FOOD_USER_ID'])){
    $is_show = '';
    $box_id = '';
@@ -24,32 +29,38 @@ if (isset($_SESSION['FOOD_USER_ID'])){
 
 
 if (isset($_POST['place_order'])){
-   $userId = $_SESSION['FOOD_USER_ID'];
-   $checkout_name = textFilter($_POST['checkout_name']);
-   $checkout_email = textFilter($_POST['checkout_email']);
-   $checkout_mobile = textFilter($_POST['checkout_mobile']);
-   $checkout_zip = textFilter($_POST['checkout_zip']);
-   $checkout_address = textFilter($_POST['checkout_address']);
-   $payment_type = textFilter($_POST['payment_type']);
 
-   if (isset($_SESSION['COUPON_CODE']) && isset($_SESSION['FINAL_PRICE']))
-   {
-      $coupon_code = textFilter($_SESSION['COUPON_CODE']);
-      $final_price = textFilter($_SESSION['FINAL_PRICE']);
-   } else {
-      $coupon_code = '';
-      $final_price = $totalPrice;
-   }
+   if ($cart_min_price != ''){
+      if ($totalPrice >= $cart_min_price){
+
+         $userId = $_SESSION['FOOD_USER_ID'];
+         $checkout_name = textFilter($_POST['checkout_name']);
+         $checkout_email = textFilter($_POST['checkout_email']);
+         $checkout_mobile = textFilter($_POST['checkout_mobile']);
+         $checkout_zip = textFilter($_POST['checkout_zip']);
+         $checkout_address = textFilter($_POST['checkout_address']);
+         $payment_type = textFilter($_POST['payment_type']);
+
+         if (isset($_SESSION['COUPON_CODE']) && isset($_SESSION['FINAL_PRICE']))
+         {
+            $coupon_code = textFilter($_SESSION['COUPON_CODE']);
+            $final_price = textFilter($_SESSION['FINAL_PRICE']);
+         } else {
+            $coupon_code = '';
+            $final_price = $totalPrice;
+         }
 
 
-   $sql = "INSERT INTO order_master (user_id, name, email, mobile, address, total_price, coupon_code, final_price, zipcode, payment_status, order_status)
+         $sql = "INSERT INTO order_master (user_id, name, email, mobile, address, total_price, coupon_code, final_price, zipcode, payment_status, order_status)
            VALUES ('$userId','$checkout_name','$checkout_email','$checkout_mobile','$checkout_address','$totalPrice',
            '$coupon_code','$final_price','$checkout_zip','pending','1')";
-   mysqli_query(conn(),$sql);
+         mysqli_query(conn(),$sql);
 
-   getOrderMasterId();
-   emptyCart();
-   redirect('order_success');
+         getOrderMasterId();
+         emptyCart();
+         redirect('order_success');
+      }
+   }
 }
 
 ?>
@@ -169,6 +180,15 @@ if (isset($_POST['place_order'])){
                                  </div>
                                  <div class="col-12">
                                     <button type="submit" name="place_order" class="btn btn-primary text-uppercase">Place Your Order</button>
+                                 </div>
+                                 <div class="col-12">
+                                    <?php
+                                    if ($cart_min_price != ''){
+                                       if ($totalPrice < $cart_min_price) {
+                                          echo "<p class='fw-bold text-danger'> $cart_min_price_msg </p>";
+                                       }
+                                    }
+                                    ?>
                                  </div>
                               </form>
 

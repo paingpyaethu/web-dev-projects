@@ -1198,8 +1198,24 @@ function orderEmail($orderId, $userId='')
    return $html;
 }
 
+/*=========================================
+               Setting
+==========================================*/
+function getSetting()
+{
+   $sql = "SELECT * FROM settings WHERE 1";
+   $res = mysqli_query(conn(),$sql);
+
+   return mysqli_fetch_assoc($res);
+}
 
 
 
 
+
+
+
+/*=========================================
+              Front Panel End
+==========================================*/
 
